@@ -19,6 +19,6 @@ fun ChatNavHost() {
         composable("chat2") { ChatScreen2(navController = chatNavController) }
         composable("chat3") { ChatScreen3(navController = chatNavController) }
         composable("chat4") { ChatScreen4(navController = chatNavController) }
-        composable("chat5") { ChatScreen5(navController = chatNavController) }
+        composable("chat5") { ChatScreen5() }
     }
 }

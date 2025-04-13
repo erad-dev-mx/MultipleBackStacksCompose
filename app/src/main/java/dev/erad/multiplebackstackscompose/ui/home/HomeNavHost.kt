@@ -29,6 +29,6 @@ fun HomeNavHost() {
         composable("home7") { HomeScreen7(navController = homeNavController) }
         composable("home8") { HomeScreen8(navController = homeNavController) }
         composable("home9") { HomeScreen9(navController = homeNavController) }
-        composable("home10") { HomeScreen10(navController = homeNavController) }
+        composable("home10") { HomeScreen10() }
     }
 }

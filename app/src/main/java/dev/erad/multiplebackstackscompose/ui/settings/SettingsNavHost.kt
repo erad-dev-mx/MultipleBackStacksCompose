@@ -19,6 +19,6 @@ fun SettingsNavHost() {
         composable("settings2") { SettingsScreen2(navController = settingsNavController) }
         composable("settings3") { SettingsScreen3(navController = settingsNavController) }
         composable("settings4") { SettingsScreen4(navController = settingsNavController) }
-        composable("settings5") { SettingsScreen5(navController = settingsNavController) }
+        composable("settings5") { SettingsScreen5() }
     }
 }
