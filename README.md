@@ -1,6 +1,12 @@
 # MultipleBackStacksCompose
 
+![JetpackCompose](assets/main.svg)
+
 An Android demo application that implements multiple back stacks using Jetpack Compose. The app demonstrates how to handle independent navigation in different sections of an application with bottom navigation.
+
+![erad](assets/erad.svg)
+
+:rocket: by __*[erad.dev](https://erad.dev/)*__
 
 ## :eyes: Features
 
