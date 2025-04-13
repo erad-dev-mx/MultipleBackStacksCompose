@@ -17,16 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import dev.erad.multiplebackstackscompose.ui.home.HomeViewModel
 import dev.erad.multiplebackstackscompose.ui.theme.MultipleBackStacksComposeTheme
 
 @Composable
 fun HomeScreen10(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(),
-    navController: NavController = rememberNavController()
+    viewModel: HomeViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -60,13 +57,11 @@ fun HomeScreen10(
 @Composable
 fun HomeScreen10Preview() {
     MultipleBackStacksComposeTheme {
-        val dummyNavController = rememberNavController()
         val viewModel = HomeViewModel()
 
         Surface {
             HomeScreen10(
-                viewModel = viewModel,
-                navController = dummyNavController
+                viewModel = viewModel
             )
         }
     }
