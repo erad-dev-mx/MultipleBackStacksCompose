@@ -4,11 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -17,7 +12,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -25,15 +19,34 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dev.erad.multiplebackstackscompose.ui.chat.screens.ChatScreen1
+import dev.erad.multiplebackstackscompose.ui.chat.screens.ChatScreen2
+import dev.erad.multiplebackstackscompose.ui.chat.screens.ChatScreen3
+import dev.erad.multiplebackstackscompose.ui.chat.screens.ChatScreen4
+import dev.erad.multiplebackstackscompose.ui.chat.screens.ChatScreen5
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen1
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen10
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen2
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen3
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen4
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen5
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen6
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen7
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen8
+import dev.erad.multiplebackstackscompose.ui.home.screens.HomeScreen9
+import dev.erad.multiplebackstackscompose.ui.navigation.RootNavigation
+import dev.erad.multiplebackstackscompose.ui.settings.screens.SettingsScreen1
+import dev.erad.multiplebackstackscompose.ui.settings.screens.SettingsScreen2
+import dev.erad.multiplebackstackscompose.ui.settings.screens.SettingsScreen3
+import dev.erad.multiplebackstackscompose.ui.settings.screens.SettingsScreen4
+import dev.erad.multiplebackstackscompose.ui.settings.screens.SettingsScreen5
 import dev.erad.multiplebackstackscompose.ui.theme.MultipleBackStacksComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,153 +55,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MultipleBackStacksComposeTheme {
-
-                val rootNavController = rememberNavController()
-                val navBackStackEntry by rootNavController.currentBackStackEntryAsState()
-
-                Scaffold(
-                    bottomBar = {
-                        NavigationBar {
-                            items.forEach { item ->
-                                val isSelected =
-                                    item.title.lowercase() == navBackStackEntry?.destination?.route
-                                NavigationBarItem(
-                                    selected = isSelected,
-                                    label = { Text(text = item.title) },
-                                    icon = {
-                                        Icon(
-                                            imageVector = if (isSelected) {
-                                                item.selectedIcon
-                                            } else {
-                                                item.unselectedIcon
-                                            },
-                                            contentDescription = item.title
-                                        )
-                                    },
-                                    onClick = {
-                                        rootNavController.navigate(item.title.lowercase()) {
-                                            popUpTo(rootNavController.graph.findStartDestination().id) {
-                                                saveState = true
-                                            }
-                                            launchSingleTop = true
-                                            restoreState = true
-                                        }
-                                    }
-                                )
-                            }
-                        }
-                    }
-                ) { padding ->
-                    NavHost(
-                        rootNavController,
-                        startDestination = "home",
-                        modifier = Modifier.padding(padding)
-                    ) {
-                        composable("home") { HomeNavHost() }
-                        composable("chat") { ChatNavHost() }
-                        composable("settings") { SettingsNavHost() }
-                    }
-                }
+                RootNavigation()
             }
         }
     }
 }
-
-@Composable
-fun HomeNavHost() {
-    val homeNavController = rememberNavController()
-
-    NavHost(homeNavController, startDestination = "home1") {
-        for (i in 1..10) {
-            composable("home$i") {
-                GenericScreen(
-                    text = "Home Screen $i",
-                    onNextClick = {
-                        if (i < 10) {
-                            homeNavController.navigate("home${i + 1}")
-                        }
-                    }
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun ChatNavHost() {
-    val chatNavController = rememberNavController()
-
-    NavHost(chatNavController, startDestination = "chat1") {
-        for (i in 1..10) {
-            composable("chat$i") {
-                GenericScreen(
-                    text = "Chat Screen $i",
-                    onNextClick = {
-                        if (i < 10) {
-                            chatNavController.navigate("chat${i + 1}")
-                        }
-                    }
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun SettingsNavHost() {
-    val settingsNavController = rememberNavController()
-
-    NavHost(settingsNavController, startDestination = "settings1") {
-        for (i in 1..10) {
-            composable("settings$i") {
-                GenericScreen(
-                    text = "Settings Screen $i",
-                    onNextClick = {
-                        if (i < 10) {
-                            settingsNavController.navigate("settings${i + 1}")
-                        }
-                    }
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun GenericScreen(text: String, onNextClick: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(text = text)
-        Spacer(Modifier.height(16.dp))
-        Button(onClick = onNextClick) {
-            Text("Next")
-        }
-    }
-}
-
-data class BottomNavigationItem(
-    val title: String,
-    val unselectedIcon: ImageVector,
-    val selectedIcon: ImageVector,
-)
-
-val items = listOf(
-    BottomNavigationItem(
-        title = "Home",
-        selectedIcon = Icons.Filled.Home,
-        unselectedIcon = Icons.Outlined.Home
-    ),
-    BottomNavigationItem(
-        title = "Chat",
-        selectedIcon = Icons.Filled.Email,
-        unselectedIcon = Icons.Outlined.Email
-    ),
-    BottomNavigationItem(
-        title = "Settings",
-        selectedIcon = Icons.Filled.Settings,
-        unselectedIcon = Icons.Outlined.Settings
-    )
-)
